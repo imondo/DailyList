@@ -1,0 +1,13 @@
+html, body {
+  -webkit-user-select: none;   /* 禁止选中文本（如无文本选中需求，此为必选项） */
+  user-select: none;
+}
+body {
+  font-family: "Helvetica Neue", Helvetica, STHeiTi, sans-serif;
+}
+a, img {
+  -webkit-touch-callout: none; /* 禁止长按链接与图片弹出菜单 */
+}
+.px2rem(@name, @px){
+    @{name}: @px / 75 * 1rem;
+}
