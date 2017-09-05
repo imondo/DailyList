@@ -4,9 +4,9 @@
     </div>
 </template>
 <style lang="less" rel="stylesheet/less">
-
+   @import "../../styles/minx.less";
    .header-wrapper {
-     font-size: 0.2rem;
+     .px2rem(font-size, 16);
    }
 </style>
 <script type='text/ecmascript-6'>

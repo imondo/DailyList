@@ -2,10 +2,8 @@
   <div class="bottom-wrapper">
     <mu-paper>
       <mu-bottom-nav :value="bottomNav" shift @change="handleChange">
-        <mu-bottom-nav-item value="movies" title="Movies" icon="ondemand_video"/>
-        <mu-bottom-nav-item value="music" title="Music" icon="music_note"/>
-        <mu-bottom-nav-item value="books" title="Books" icon="books"/>
-        <mu-bottom-nav-item value="pictures" title="Pictures" icon="photo"/>
+        <mu-bottom-nav-item value="1" title="打卡" icon="bookmark border"/>
+        <mu-bottom-nav-item value="0" title="我的" icon="person"/>
       </mu-bottom-nav>
     </mu-paper>
   </div>
