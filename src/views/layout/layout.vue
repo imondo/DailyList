@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <v-header></v-header>
     <v-main></v-main>
     <v-bottom></v-bottom>

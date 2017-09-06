@@ -2,8 +2,9 @@
   <div class="bottom-wrapper">
     <mu-paper>
       <mu-bottom-nav :value="bottomNav" shift @change="handleChange">
-        <mu-bottom-nav-item value="1" title="打卡" icon="bookmark border"/>
-        <mu-bottom-nav-item value="0" title="我的" icon="person"/>
+        <mu-bottom-nav-item value="index" :to="{path: '/index'}" icon="today"/>
+        <mu-bottom-nav-item value="everyDay" :to="{path: '/everyDay'}" icon="list"/>
+        <mu-bottom-nav-item value="user" :to="{path: '/user'}" icon="person"/>
       </mu-bottom-nav>
     </mu-paper>
   </div>
@@ -19,9 +20,11 @@
   export default {
     data () {
       return {
-        bottomNav: 'movies',
-        bottomNavColor: 'movies'
+        bottomNav: ''
       }
+    },
+    created() {
+      this.bottomNav = this.$route.name;
     },
     methods: {
       handleChange (val) {
