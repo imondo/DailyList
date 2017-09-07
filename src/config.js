@@ -1,6 +1,6 @@
 const APP_CONFIG = {
-  id: '05I4knkLF3pLp02UB5lfe0FQ-gzGzoHsz',
-  key: 'Nnu56KEHv8hsvqDAyxwPWsgp'
+  id: 'iDWyJ80MMzNFx02pMSCuID2c-gzGzoHsz',
+  key: 'dVUSnNWHW08CgiuhOFMpU0QT'
 };
 
 export default APP_CONFIG;
