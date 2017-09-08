@@ -1,5 +1,6 @@
 <template>
   <div class="header-wrapper">
+    <i class="iconfont icon-fanhui left" @click="goBack()" v-show="back"></i>
     {{title}}
   </div>
 </template>
@@ -15,21 +16,32 @@
     border-bottom: 1px solid #E9E9E9;
     text-align: center;
     .px2rem(line-height, 100);
+    .left {
+      position: absolute;
+      left: 5px;
+    }
   }
 </style>
 <script type='text/ecmascript-6'>
   export default {
     data() {
       return {
-        title: ''
+        title: '',
+        back: false
       }
     },
     created() {
       this.title = this.$route.meta.title;
     },
+    methods: {
+      goBack() {
+        this.$router.go(-1);
+      }
+    },
     watch: {
       '$route': function(to, from) {
         this.title = to.meta.title;
+        this.back = this.$route.meta.back;
       }
     }
   }

@@ -4,7 +4,7 @@
       <mu-bottom-nav :value="bottomNav" shift @change="handleChange">
         <mu-bottom-nav-item value="index" :to="{path: '/index'}" icon="today"/>
         <mu-bottom-nav-item value="everyDay" :to="{path: '/everyDay'}" icon="list"/>
-        <mu-bottom-nav-item value="user" :to="{path: '/user'}" icon="person"/>
+        <mu-bottom-nav-item value="user" :to="{path: '/mine'}" icon="person"/>
       </mu-bottom-nav>
     </mu-paper>
   </div>

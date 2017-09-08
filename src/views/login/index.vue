@@ -21,13 +21,22 @@
       <div class="more-sign">
         <h6>社交账号登录</h6>
         <ul>
-
+          <li><a href="/users/auth/wechat" class="weixin">
+            <i class="iconfont icon-weixin"></i>
+          </a></li>
+          <li><a href="/users/auth/qq_connect" class="qq">
+            <i class="iconfont icon-QQ"></i>
+          </a></li>
+          <li><a href="javascript:;" class="weibo" id="weibo" @click="weiBoLogin()">
+            <i class="iconfont icon-weibo"></i>
+          </a></li>
         </ul>
       </div>
     </div>
   </div>
 </template>
 <style lang="less" rel="stylesheet/less">
+  @import "../../styles/minx";
   .login-wrapper {
     height: 100%;
     display:flex;
@@ -52,10 +61,56 @@
         }
       }
     }
+    .more-sign {
+      h6 {
+        position: relative;
+        margin: 20px 0 10px;
+        font-size: 12px;
+        color: #b5b5b5;
+        &:before, &:after {
+          content: "";
+          border-top: 1px solid #b5b5b5;
+          display: block;
+          position: absolute;
+          width: 60px;
+          top: 5px;
+        }
+        &:after {
+          right: 0;
+        }
+      }
+      ul {
+        li {
+          display: inline-block;
+          a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            .iconColor(@color) {
+              color: @color;
+            }
+            &.weixin {
+              .iconColor(#00bb29);
+            }
+            &.qq {
+              .iconColor(#498ad5);
+            }
+            &.weibo {
+              .iconColor(#e05244);
+            }
+            i {
+              font-size: 30px;
+              color: inherit;
+            }
+          }
+        }
+      }
+    }
   }
 </style>
 <script type='text/ecmascript-6'>
-  import { register, login, smsCode } from 'api/login';
+  import { register, login, smsCode, weiBoAuth } from 'api/login';
   export default {
     data() {
       return {
@@ -94,6 +149,9 @@
             })
           })
         }
+      },
+      weiBoLogin() {
+        weiBoAuth();
       }
     }
   }

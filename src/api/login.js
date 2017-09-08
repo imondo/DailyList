@@ -37,3 +37,18 @@ export function currentUser() {
     method: 'GET'
   })
 }
+
+export function weiBoAuth() {
+  WB2.anyWhere(function(W){
+    W.parseCMD('/users/show.json', function(oResult, bStatus) {
+      if(bStatus) {
+        //to do something...
+      }
+    }, {
+      screen_name : '姚晨'
+    }, {
+      method : 'get',
+      cache_time : 30
+    });
+  });
+}

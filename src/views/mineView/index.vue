@@ -1,11 +1,12 @@
 <template>
   <div class="mine-wrapper">
     <mu-list>
-      <mu-list-item :value="1" :title="user.username">
+      <mu-list-item :value="1" :title="user.username" to="/mine/info">
         <mu-avatar src="../../src/assets/user.png" slot="leftAvatar"/>
+        <i class="mu-item-right iconfont icon-gengduo"></i>
       </mu-list-item>
       <mu-list-item title="关于">
-        <mu-icon slot="right" value="info"/>
+        <i class="mu-item-right iconfont icon-gengduo"></i>
       </mu-list-item>
       <mu-raised-button label="退出" @click="logOut()" class="demo-raised-button" secondary fullWidth/>
     </mu-list>
