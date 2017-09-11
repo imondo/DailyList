@@ -6,7 +6,7 @@ import mineView from 'views/mineView/mine';
 
 const loginView = reslove => require(['views/login/index'], reslove);
 const indexView = reslove => require(['views/indexView/index'], reslove);
-const everyDayView = reslove => require(['views/everyDayView/index'], reslove);
+const addView = reslove => require(['views/addView/index'], reslove);
 // mine
 // const mineView = reslove => require(['views/mineView/mine'], reslove);
 const userView = reslove => require(['views/mineView/index'], reslove);
@@ -28,7 +28,7 @@ export const RouterMap = [
     component: layout,
     children: [
       {path: '/index', name: 'index', component: indexView, meta: {title: '今天'}},
-      {path: '/everyDay', name: 'everyDay', component: everyDayView, meta: {title: '每天'}},
+      {path: '/add', name: 'add', component: addView, meta: {title: '添加'}},
       {
         path: '/mine',
         name: 'mine',

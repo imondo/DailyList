@@ -1,16 +1,16 @@
 @import "minx";
-.mu-bottom-nav-shift {
+.mu-bottom-nav {
   background-color: #FFFFFF;
   border-top: 1px solid #E9E9E9;
   .mu-buttom-item {
     color: #c0c0c0;
   }
+  .mu-bottom-item-icon {
+    transform: translate3d(0, 8px, 0);
+  }
   .mu-bottom-item-active {
     .mu-bottom-item-icon, .mu-bottom-item-text {
       color: #000000;
-    }
-    .mu-bottom-item-icon {
-      transform: translate3d(0, 8px, 0);
     }
   }
 }
@@ -21,7 +21,7 @@
   .px2rem(padding, 16);
   .px2rem(border-radius, 5);
   .px2rem(font-size, 14);
-  background-color: rgba(0, 0, 0, 0.75);;
+  background-color: #000000!important;
   color: #FFFFFF;
 }
 .mu-circular-progress {

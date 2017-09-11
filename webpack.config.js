@@ -1,5 +1,11 @@
 var path = require('path')
 var webpack = require('webpack')
+const museUiThemePath = path.join(
+  __dirname,
+  'node_modules',
+  'muse-ui',
+  'src/styles/themes/variables/default.less'
+)
 
 module.exports = {
   entry: './src/main.js',
@@ -11,12 +17,26 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /muse-ui.src.*?js$/,
+        loader: 'babel-loader'
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: {
           loaders: {
-            'scss': 'vue-style-loader!css-loader!sass-loader',
-            'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax'
+            less: [
+              'vue-style-loader',
+              'css-loader',
+              {
+                loader: 'less-loader',
+                options: {
+                  globalVars: {
+                    museUiTheme: `'${museUiThemePath}'`,
+                  }
+                }
+              }
+            ]
           }
         }
       },
@@ -64,7 +84,8 @@ module.exports = {
       'utils': path.resolve(__dirname, 'src/utils'),
       'store': path.resolve(__dirname, 'src/store'),
       'router': path.resolve(__dirname, 'src/router'),
-      'filters': path.resolve(__dirname, 'src/filters')
+      'filters': path.resolve(__dirname, 'src/filters'),
+      'muse-components': 'muse-ui/src'
     }
   },
   devServer: {
