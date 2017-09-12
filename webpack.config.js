@@ -15,7 +15,7 @@ module.exports = {
     filename: 'build.js'
   },
   module: {
-    rules: [
+    loaders: [
       {
         test: /muse-ui.src.*?js$/,
         loader: 'babel-loader'
@@ -68,6 +68,10 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
+      },
+      {
+        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'file-loader'
       }
     ]
   },

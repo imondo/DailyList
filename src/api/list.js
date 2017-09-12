@@ -23,7 +23,7 @@ export function updateList(data, id) {
   });
 }
 
-export function getList(data) {
+export function getList(data, id) {
   return vueAxios({
     url: 'classes/List',
     method: 'GET',

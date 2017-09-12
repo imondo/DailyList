@@ -7,6 +7,9 @@
 <style lang="less" rel="stylesheet/less">
   @import "../../styles/minx.less";
   .header-wrapper {
+    position: fixed;
+    width: 100%;
+    z-index: 2;
     font-family: 'Microsoft YaHei';
     font-weight: bold;
     .px2rem(font-size, 30);
