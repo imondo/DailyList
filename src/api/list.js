@@ -23,10 +23,17 @@ export function updateList(data, id) {
   });
 }
 
-export function getList(data, id) {
+export function getList(data) {
   return vueAxios({
-    url: 'classes/List',
+    url: 'classes/List?order=-updatedAt',
     method: 'GET',
     params: data
+  });
+}
+
+export function getDetails(id) {
+  return vueAxios({
+    url: 'classes/List/' + id,
+    method: 'GET'
   });
 }

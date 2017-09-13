@@ -28,7 +28,7 @@ export const RouterMap = [
     component: layout,
     children: [
       {path: '/index', name: 'index', component: indexView, meta: {title: '今天'}},
-      {path: '/details', name: 'details', component: detailsView, meta: {title: '目标详情'}},
+      {path: '/details/:id', name: 'details', component: detailsView, meta: {title: '目标详情'}},
       {path: '/add', name: 'add', component: addView, meta: {title: '添加'}},
       {
         path: '/mine',

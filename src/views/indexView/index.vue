@@ -6,13 +6,13 @@
           <mu-list-item class="list" :title="item.goal"
                         v-touch:left.capture='touchLeft(index)'
                         v-touch:right.capture='touchRight'
-                        :to="{path:'/details'}"
+                        :to="{name:'details',params:{id: item.objectId}}"
                         :class="{deleteSlider: index==nowIndex}">
             <mu-avatar src="../../src/assets/user.png" slot="leftAvatar"/>
             <span slot="describe">已坚持3天</span>
             <mu-icon slot="right" value="info"/>
           </mu-list-item>
-          <mu-icon class="list-del" slot="right" value="info" ref="remove" v-touch:tap="remove(index, item)"/>
+          <mu-icon class="list-del" slot="right" value="delete_sweep" ref="remove" v-touch:tap="remove(index, item)"/>
         </p>
       </mu-list>
     </div>

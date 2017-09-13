@@ -37,7 +37,7 @@
           font-size: 50px;
           position: absolute;
           left: 27px;
-          top: 19px;
+          top: 22px;
         }
       }
     }
@@ -45,15 +45,45 @@
 </style>
 <script type='text/ecmascript-6'>
   import date from 'components/date';
+  import { getDetails, updateList } from 'api/list';
+  import { getDaysInOneMonth } from 'utils/index';
   export default {
     data() {
       return {
-
+        initDay: null,
+        detailsData: null
       };
     },
+    created() {
+      this.getListDetails(this.$route.params.id);
+    },
     methods: {
+      getListDetails(id) {
+        getDetails(id).then((res) => {
+          if (res.status === 200) {
+            this.detailsData = res.data;
+          }
+        });
+      },
       done() {
-        console.log(11);
+        const vm = this;
+        vm.initDay = getDaysInOneMonth.format('y-m-d');
+        vm.detailsData.details.isToday = !vm.detailsData.details.isToday;
+        vm.detailsData.details.startDay = !null ? vm.initDay : vm.detailsData.details.startDay;
+        console.log(vm.initDay,vm.detailsData.details.startDay);
+        vm.detailsData.details.isToday ? vm.detailsData.details.sumTotal++ : vm.detailsData.details.sumTotal--;
+        let params = {
+          details: {
+            isToday: vm.detailsData.details.isToday,
+            startDay: vm.detailsData.details.startDay,
+            sumTotal: vm.detailsData.details.sumTotal
+          }
+        };
+        updateList(params, vm.$route.params.id).then((res) => {
+          if (res.status === 200) {
+            console.log(res);
+          }
+        });
       }
     },
     components: {

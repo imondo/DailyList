@@ -25,7 +25,13 @@
           goal: '',
           snippet: '',
           targetDate: '',
-          ownerId: ''
+          ownerId: '',
+          isDone: false,
+          details: {
+            isToday: false,
+            startDay: null,
+            sumTotal: 0
+          }
         }
       }
     },
@@ -37,7 +43,6 @@
         console.log(val);
       },
       addSave() {
-        console.log(this.addData);
         addList(this.addData).then((res) => {
           if (res.status === 201) {
             this.$router.push({path: '/index'});
