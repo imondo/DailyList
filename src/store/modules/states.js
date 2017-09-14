@@ -21,7 +21,7 @@ const states = {
       console.log(state.bottomSheet);
     },
     SET_CALENDAR: (state, calendarData) => {
-      state.calendarData = calendarData;
+        state.calendarData = calendarData;
     }
   },
   actions: {

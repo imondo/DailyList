@@ -6,7 +6,7 @@
         </span>
     </div>
     <div class="details-content main">
-      <v-date :calendarData="detailsData.details"></v-date>
+      <v-date></v-date>
     </div>
   </div>
 </template>
@@ -62,10 +62,9 @@
         sum: null
       };
     },
-    beforeRouteEnter(to, from, next) {
-      next(vm => {
-        vm.getListDetails(vm.$route.params.id);
-      });
+    created() {
+      this.getListDetails(this.$route.params.id);
+      console.log(11);
     },
     methods: {
       getListDetails(id) {
@@ -75,7 +74,6 @@
           if (res.status === 200) {
             vm.detailsData.details = res.data.details;
             vm.$store.commit("SET_CALENDAR", vm.detailsData.details);
-            vm.$emit('deaa', vm.detailsData.details);
             if (vm.detailsData.details.yesterday !== vm.initDay) {
               vm.detailsData.details.isToday = false;
             }
