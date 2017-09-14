@@ -25,7 +25,6 @@
         <span class="date-info" :class="{'date-index': index===startIndex}">{{date}}</span>
       </li>
     </ul>
-    <p>{{startData}}</p>
   </div>
 </template>
 <style lang="less" rel="stylesheet/less">
@@ -86,8 +85,8 @@
 </style>
 <script type='text/ecmascript-6'>
   import { getDaysInOneMonth } from 'utils/index';
-  import store from 'store/index';
   export default {
+    props: ['calendarData'],
     data() {
       return {
         dateData: null,
@@ -103,13 +102,11 @@
     created() {
       this.getDateData();
       console.log(22);
+
     },
     computed: {
       nowMonth() {
         return this.year + '-' + ((this.month + 1) < 10 ? '0' + (this.month + 1) : (this.month + 1));
-      },
-      startData() {
-        return store.getters.calendarData;
       }
     },
     methods: {
@@ -119,6 +116,9 @@
         vm.weekDay = this.initData.weekday;
         vm.dateData = this.initData.days;
         vm.totalDays = (this.initData.totalDays + this.initData.weekday) - 1;
+        console.log(this.$store.getters.calendarData)
+
+
       },
       getDateData() {
         const vm = this;
@@ -126,8 +126,6 @@
         vm.year = time.getFullYear();
         vm.month = time.getMonth();
         this.initDate(vm.year, vm.month);
-          console.log(vm.startData)
-
       },
       prev() {
         const vm = this;
@@ -137,8 +135,7 @@
         } else {
           vm.month--;
         }
-
-          vm.initDate(vm.year, vm.month);
+        vm.initDate(vm.year, vm.month);
       },
       next() {
         const vm = this;
@@ -152,7 +149,21 @@
       }
     },
     watch: {
-
+      calendarData(val) {
+        const vm = this;
+        let start = val.startDay.split('-');
+        let nowDay = vm.year + '-' + (vm.month + 1);
+        let startDay = start[0] + '-' + start[1];
+        if (nowDay === startDay) {
+          console.log(11);
+          vm.startIndex = vm.dateData.indexOf(Number(start[2]));
+        } else {
+          console.log(22);
+        }
+      },
+      month(val) {
+         console.log(this.startIndex)
+      }
     }
   }
 </script>

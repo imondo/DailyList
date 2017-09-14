@@ -6,7 +6,7 @@
         </span>
     </div>
     <div class="details-content main">
-      <v-date></v-date>
+      <v-date :calendarData="detailsData.details"></v-date>
     </div>
   </div>
 </template>
