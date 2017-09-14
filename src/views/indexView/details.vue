@@ -1,12 +1,12 @@
 <template>
   <div class="details-wrapper">
     <div class="details-top">
-        <span class="details-icon" @click="done">
+        <span class="details-icon" @click="done" :class="{done: detailsData.details.isToday}">
             <mu-icon value="done" class="details-icon-done"/>
         </span>
     </div>
     <div class="details-content main">
-      <v-date></v-date>
+      <v-date :calendarData="detailsData.details"></v-date>
     </div>
   </div>
 </template>
@@ -33,6 +33,9 @@
         color: rgba(0, 0, 0, 0.87);
         background-color: #E9E9E9;
         box-shadow: 0 1px 6px rgba(0, 0, 0, 0.117647), 0 1px 4px rgba(0, 0, 0, 0.117647);
+        &.done {
+          color: red;
+        }
         .details-icon-done {
           font-size: 50px;
           position: absolute;
@@ -51,32 +54,55 @@
     data() {
       return {
         initDay: null,
-        detailsData: null
+        detailsData: {
+          details: {
+            isToday: false
+          }
+        },
+        sum: null
       };
     },
-    created() {
-      this.getListDetails(this.$route.params.id);
+    beforeRouteEnter(to, from, next) {
+      next(vm => {
+        vm.getListDetails(vm.$route.params.id);
+      });
     },
     methods: {
       getListDetails(id) {
+        const vm = this;
+        vm.initDay = getDaysInOneMonth.format('y-m-d');
         getDetails(id).then((res) => {
           if (res.status === 200) {
-            this.detailsData = res.data;
+            vm.detailsData.details = res.data.details;
+            vm.$store.commit("SET_CALENDAR", vm.detailsData.details);
+            vm.$emit('deaa', vm.detailsData.details);
+            if (vm.detailsData.details.yesterday !== vm.initDay) {
+              vm.detailsData.details.isToday = false;
+            }
+            vm.sum = vm.detailsData.details.sumTotal;
           }
         });
       },
       done() {
         const vm = this;
-        vm.initDay = getDaysInOneMonth.format('y-m-d');
         vm.detailsData.details.isToday = !vm.detailsData.details.isToday;
-        vm.detailsData.details.startDay = !null ? vm.initDay : vm.detailsData.details.startDay;
-        console.log(vm.initDay,vm.detailsData.details.startDay);
-        vm.detailsData.details.isToday ? vm.detailsData.details.sumTotal++ : vm.detailsData.details.sumTotal--;
+
+        if (vm.detailsData.details.isToday) {
+          vm.detailsData.details.yesterday = vm.initDay;
+          vm.detailsData.details.startDay = vm.resetDay(vm.detailsData.details.startDay, true);
+          vm.sum++;
+        } else {
+          vm.sum--;
+          vm.detailsData.details.startDay = vm.resetDay(vm.detailsData.details.startDay);
+          vm.detailsData.details.yesterday = vm.resetDay(vm.detailsData.details.yesterday);
+        }
+
         let params = {
           details: {
             isToday: vm.detailsData.details.isToday,
             startDay: vm.detailsData.details.startDay,
-            sumTotal: vm.detailsData.details.sumTotal
+            yesterday: vm.detailsData.details.yesterday,
+            sumTotal: vm.sum
           }
         };
         updateList(params, vm.$route.params.id).then((res) => {
@@ -84,6 +110,20 @@
             console.log(res);
           }
         });
+      },
+      resetDay(day, check) {
+        const vm = this;
+        if (check) {
+          if (day === null) {
+            return vm.initDay;
+          } else {
+            return day;
+          }
+        } else {
+          if (day === vm.initDay) {
+            return null;
+          }
+        }
       }
     },
     components: {

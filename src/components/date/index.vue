@@ -22,7 +22,7 @@
     </ul>
     <ul class="calendar-day">
       <li v-for="(date, index) in dateData" class="day" :class="{dateFirst:weekDay===index,dateLast:totalDays===index}">
-        <span class="date-info">{{date}}</span>
+        <span class="date-info" :class="{'date-index': index===startIndex}">{{date}}</span>
       </li>
     </ul>
   </div>
@@ -77,12 +77,16 @@
       .dateLast ~ .day {
         color: #868686;
       }
+      .date-index {
+        color: red;
+      }
     }
   }
 </style>
 <script type='text/ecmascript-6'>
   import { getDaysInOneMonth } from 'utils/index';
   export default {
+    props: ['calendarData'],
     data() {
       return {
         dateData: null,
@@ -90,7 +94,9 @@
         month: '',
         weekDay: '',
         totalDays: '',
-        initData: null
+        initData: null,
+        isColor: false,
+        startIndex: 0
       };
     },
     created() {
@@ -124,6 +130,9 @@
         } else {
           vm.month--;
         }
+        vm.$on('deaa', function (val) {
+          console.log(val);
+        })
         vm.initDate(vm.year, vm.month);
       },
       next() {
@@ -135,6 +144,27 @@
           vm.month++;
         }
         vm.initDate(vm.year, vm.month);
+      }
+    },
+    watch: {
+      calendarData(newV, oldV) {
+        this.startData = newV;
+      },
+      year(val) {
+
+      },
+      month(val) {
+//        const vm = this;
+//        console.log(vm.startData)
+//        let start = vm.startData.startDay.split('-');
+//        let nowDay = vm.year + '-' + (val + 1);
+//        let startDay = start[0] + '-' + start[1];
+//        if (nowDay === startDay) {
+//          console.log(11);
+//          vm.startIndex = vm.dateData.indexOf(Number(start[2]));
+//        } else {
+//          console.log(22);
+//        }
       }
     }
   }

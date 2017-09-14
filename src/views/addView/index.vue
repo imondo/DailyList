@@ -30,6 +30,7 @@
           details: {
             isToday: false,
             startDay: null,
+            yesterday: null,
             sumTotal: 0
           }
         }

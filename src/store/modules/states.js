@@ -2,7 +2,9 @@ const states = {
   state: {
     popupState: false,
     popupMsg: '',
-    progress: false
+    progress: false,
+    bottomSheet: false,
+    calendarData: {}
   },
   mutations: {
     SET_POPUPSTATE: (state, popupState) => {
@@ -13,6 +15,13 @@ const states = {
     },
     SET_PROGRESS: (state, progress) => {
       state.progress = progress;
+    },
+    SET_SHEET: (state, bottomSheet) => {
+      state.bottomSheet = bottomSheet;
+      console.log(state.bottomSheet);
+    },
+    SET_CALENDAR: (state, calendarData) => {
+      state.calendarData = calendarData;
     }
   },
   actions: {

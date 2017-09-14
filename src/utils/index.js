@@ -26,8 +26,19 @@ export const getDaysInOneMonth = {
     for (let i = weekDay, num = 1; i < 42; i++, num++) {
       arr[i] = num > totalDays ? num - totalDays : num;
     }
+
     init.days = arr;
+    init.nowDay = this.nowDay();
+    console.log(init);
     return init;
+  },
+  nowDay: function () {
+    let nowDay = {};
+    let time = new Date();
+    nowDay.year = time.getFullYear();
+    nowDay.month = time.getMonth();
+    nowDay.day = time.getDate();
+    return nowDay;
   },
   format: function (str) {
     let time = new Date();

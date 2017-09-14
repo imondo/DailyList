@@ -9,11 +9,12 @@
                         :to="{name:'details',params:{id: item.objectId}}"
                         :class="{deleteSlider: index==nowIndex}">
             <mu-avatar src="../../src/assets/user.png" slot="leftAvatar"/>
-            <span slot="describe">已坚持3天</span>
-            <mu-icon slot="right" value="info"/>
+            <span slot="describe">已坚持{{item.details.sumTotal}}天</span>
+            <mu-icon slot="right" :value="item.details.isToday?'done':'info'" :class="{'done-icon': item.details.isToday}"/>
           </mu-list-item>
-          <mu-icon class="list-del" slot="right" value="delete_sweep" ref="remove" v-touch:tap="remove(index, item)"/>
+          <mu-icon class="list-del" slot="right" value="delete_sweep" ref="remove" @click.stop="remove(index, item)"/>
         </p>
+        <v-bottom-sheet title="确定要删除吗？" :bottomSheet="bottomSheet" @callback="deleteList" class="hidden"></v-bottom-sheet>
       </mu-list>
     </div>
   </div>
@@ -45,6 +46,9 @@
         &.deleteSlider {
           transform: translateX(-70px);
         }
+        .done-icon {
+          color: red;
+        }
       }
       .list-del {
         position: absolute;
@@ -63,16 +67,24 @@
 </style>
 <script type='text/ecmascript-6'>
   import { getList, deleteList} from 'api/list';
+  import { getDaysInOneMonth } from 'utils/index';
+  import bottomSheet from 'components/bottomSheet'
   const CODE = 200;
   export default {
     data() {
       return {
         list: [],
-        nowIndex: -1
+        nowIndex: -1,
+        itemData: null
       }
     },
     created() {
       this.getList(this.$store.getters.userInfo.objectId);
+    },
+    computed: {
+      bottomSheet() {
+        return this.$store.getters.bottomSheet;
+      }
     },
     methods: {
       getList(id) {
@@ -84,7 +96,12 @@
         };
         getList(params).then((res) => {
           if (res.status === CODE) {
-            vm.list = res.data.results;
+            vm.list = res.data.results.map(v => {
+              if (getDaysInOneMonth.format('y-m-d') !== v.details.yesterday) {
+                v.details.isToday = false;
+              }
+              return v;
+            });
           }
         })
       },
@@ -100,15 +117,24 @@
       },
       remove(index, item) {
         const vm = this;
-        return function() {
-          deleteList(item.objectId).then((res) => {
-            if (res.status === 200) {
-              vm.list.splice(index, 1);
-              vm.nowIndex = -1;
-            }
-          });
-        }
+        vm.itemData = {
+          index: index,
+          item: item
+        };
+        vm.$store.commit("SET_SHEET", true);
+      },
+      deleteList() {
+        const vm = this;
+        deleteList(vm.itemData.item.objectId).then((res) => {
+          if (res.status === 200) {
+            vm.list.splice(vm.itemData.index, 1);
+            vm.nowIndex = -1;
+          }
+        });
       }
+    },
+    components: {
+      'v-bottom-sheet': bottomSheet
     }
   }
 </script>
