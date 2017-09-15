@@ -31,6 +31,7 @@
             isToday: false,
             startDay: null,
             yesterday: null,
+            totalDays: [],
             sumTotal: 0
           }
         }

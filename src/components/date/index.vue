@@ -22,9 +22,10 @@
     </ul>
     <ul class="calendar-day">
       <li v-for="(date, index) in dateData" class="day" :class="{dateFirst:weekDay===index,dateLast:totalDays===index}">
-        <span class="date-info" :class="{'date-index': index===startIndex}">{{date}}</span>
+        <span class="date-info">{{date}}</span>
       </li>
     </ul>
+    <span v-for="da in nowMonthData">{{da}}</span>
   </div>
 </template>
 <style lang="less" rel="stylesheet/less">
@@ -77,9 +78,6 @@
       .dateLast ~ .day {
         color: #868686;
       }
-      .date-index {
-        color: red;
-      }
     }
   }
 </style>
@@ -96,13 +94,13 @@
         totalDays: '',
         initData: null,
         isColor: false,
-        startIndex: 0
+        startIndex: 0,
+        lastIndex: 0,
+        nowMonthData: null
       };
     },
     created() {
       this.getDateData();
-      console.log(22);
-
     },
     computed: {
       nowMonth() {
@@ -116,9 +114,6 @@
         vm.weekDay = this.initData.weekday;
         vm.dateData = this.initData.days;
         vm.totalDays = (this.initData.totalDays + this.initData.weekday) - 1;
-        console.log(this.$store.getters.calendarData)
-
-
       },
       getDateData() {
         const vm = this;
@@ -150,19 +145,18 @@
     },
     watch: {
       calendarData(val) {
+        console.log(val);
         const vm = this;
-        let start = val.startDay.split('-');
-        let nowDay = vm.year + '-' + (vm.month + 1);
-        let startDay = start[0] + '-' + start[1];
-        if (nowDay === startDay) {
-          console.log(11);
-          vm.startIndex = vm.dateData.indexOf(Number(start[2]));
-        } else {
-          console.log(22);
+        for (let i in val) {
+          if (val[i].month === vm.nowMonth) {
+            vm.nowMonthData = val[i].days;
+            let days = val[i].days;
+            console.log(vm.nowMonthData);
+            for (let j in days) {
+              console.log(vm.dateData.indexOf(days[j]));
+            }
+          }
         }
-      },
-      month(val) {
-         console.log(this.startIndex)
       }
     }
   }

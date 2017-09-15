@@ -29,7 +29,6 @@ export const getDaysInOneMonth = {
 
     init.days = arr;
     init.nowDay = this.nowDay();
-    console.log(init);
     return init;
   },
   nowDay: function () {

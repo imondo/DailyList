@@ -6,7 +6,7 @@
         </span>
     </div>
     <div class="details-content main">
-      <v-date :calendarData="detailsData.details"></v-date>
+      <v-date :calendarData="detailsData.details.totalDays"></v-date>
     </div>
   </div>
 </template>
@@ -54,6 +54,8 @@
     data() {
       return {
         initDay: null,
+        nowDay: null,
+        ownerId: null,
         detailsData: {
           details: {
             isToday: false
@@ -64,14 +66,15 @@
     },
     created() {
       this.getListDetails(this.$route.params.id);
-      console.log(11);
     },
     methods: {
       getListDetails(id) {
         const vm = this;
-        vm.initDay = getDaysInOneMonth.format('y-m-d');
+        vm.initDay = getDaysInOneMonth.format('ymd');
+        vm.nowDay = getDaysInOneMonth.init().nowDay;
         getDetails(id).then((res) => {
           if (res.status === 200) {
+            vm.ownerId = res.data.ownerId;
             vm.detailsData.details = res.data.details;
             vm.$store.commit("SET_CALENDAR", vm.detailsData.details);
             if (vm.detailsData.details.yesterday !== vm.initDay) {
@@ -83,27 +86,61 @@
       },
       done() {
         const vm = this;
-        vm.detailsData.details.isToday = !vm.detailsData.details.isToday;
+        let details = vm.detailsData.details;
+        let id = vm.$route.params.id;
+        this.updateDay(details, id)
+      },
+      updateDay(details, id) {
+        const vm = this;
+        details.isToday = !details.isToday;
+        let signRecord = {};
+        let month = vm.nowDay.year + '-' + ((vm.nowDay.month + 1) < 10 ? '0' + (vm.nowDay.month + 1) : (vm.nowDay.month + 1));
+        signRecord.month = month;
+        signRecord.days = [];
+        if (details.totalDays.length === 0) {
+          details.totalDays.push(signRecord);
+        } else {
+          for (let i in details.totalDays) {
+            if (details.totalDays[i].month !== signRecord.month) {
+              details.totalDays.push(signRecord);
+            }
+          }
+        }
+        // 是否今天签到
+        if (details.isToday) {
 
-        if (vm.detailsData.details.isToday) {
-          vm.detailsData.details.yesterday = vm.initDay;
-          vm.detailsData.details.startDay = vm.resetDay(vm.detailsData.details.startDay, true);
+          for (let i in details.totalDays) {
+            if (details.totalDays[i].month === signRecord.month && details.yesterday != vm.initDay) {
+              if (details.totalDays[i].days.indexOf(vm.nowDay.day) === -1) {
+                details.totalDays[i].days.push(vm.nowDay.day);
+              }
+            }
+          }
+
+          details.yesterday = vm.initDay;
+          details.startDay = vm.resetDay(details.startDay, true);
           vm.sum++;
         } else {
           vm.sum--;
-          vm.detailsData.details.startDay = vm.resetDay(vm.detailsData.details.startDay);
-          vm.detailsData.details.yesterday = vm.resetDay(vm.detailsData.details.yesterday);
+          details.startDay = vm.resetDay(details.startDay);
+          details.yesterday = vm.resetDay(details.yesterday);
+
+          for (let i in details.totalDays) {
+            details.totalDays[i].days.pop();
+          }
         }
 
         let params = {
           details: {
-            isToday: vm.detailsData.details.isToday,
-            startDay: vm.detailsData.details.startDay,
-            yesterday: vm.detailsData.details.yesterday,
+            isToday: details.isToday,
+            startDay: details.startDay,
+            yesterday: details.yesterday,
+            totalDays: details.totalDays,
             sumTotal: vm.sum
           }
         };
-        updateList(params, vm.$route.params.id).then((res) => {
+
+        updateList(params, id).then((res) => {
           if (res.status === 200) {
             console.log(res);
           }
