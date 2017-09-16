@@ -14,16 +14,21 @@ vueAxios.interceptors.request.use(config =>{
   if (getToken()) {
     config.headers['X-LC-Session'] = getToken();
   }
+
+  store.commit('SET_PROGRESS', true);
   return config;
 }, error => {
   store.commit('SET_POPUPSTATE', true);
   store.commit('SET_POPUPMSG', error);
-  store.commit('SET_PROGRESS', true);
   return Promise.reject(error);
 });
 
 // 返回拦截
-vueAxios.interceptors.response.use(response => response, error => {
+vueAxios.interceptors.response.use(response => {
+
+  store.commit('SET_PROGRESS', false);
+  return response;
+}, error => {
   let errMsg = JSON.parse(JSON.stringify(error)).response.data.error;
   store.commit('SET_POPUPSTATE', true);
   store.commit('SET_POPUPMSG', errMsg);

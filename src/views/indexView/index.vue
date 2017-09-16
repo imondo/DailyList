@@ -97,11 +97,12 @@
         getList(params).then((res) => {
           if (res.status === CODE) {
             vm.list = res.data.results.map(v => {
-              if (getDaysInOneMonth.format('y-m-d') !== v.details.yesterday) {
+              if (getDaysInOneMonth.format('ymd') !== v.details.yesterday) {
                 v.details.isToday = false;
               }
               return v;
             });
+            console.log(vm.list);
           }
         })
       },

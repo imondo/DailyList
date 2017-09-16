@@ -55,7 +55,6 @@
       return {
         initDay: null,
         nowDay: null,
-        ownerId: null,
         detailsData: {
           details: {
             isToday: false
@@ -74,9 +73,7 @@
         vm.nowDay = getDaysInOneMonth.init().nowDay;
         getDetails(id).then((res) => {
           if (res.status === 200) {
-            vm.ownerId = res.data.ownerId;
             vm.detailsData.details = res.data.details;
-            vm.$store.commit("SET_CALENDAR", vm.detailsData.details);
             if (vm.detailsData.details.yesterday !== vm.initDay) {
               vm.detailsData.details.isToday = false;
             }

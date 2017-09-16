@@ -21,11 +21,12 @@
       </li>
     </ul>
     <ul class="calendar-day">
-      <li v-for="(date, index) in dateData" class="day" :class="{dateFirst:weekDay===index,dateLast:totalDays===index}">
-        <span class="date-info">{{date}}</span>
+      <li v-for="(date, index) in dateData" class="day" :class="{'date-first':weekDay===index,'date-last':totalDays===index}">
+        <span class="date-info"
+          :class="{'date-index':nowMonthData.indexOf(date) > -1,'date-now':nowDay.day===date}"
+        >{{date}}</span>
       </li>
     </ul>
-    <span v-for="da in nowMonthData">{{da}}</span>
   </div>
 </template>
 <style lang="less" rel="stylesheet/less">
@@ -69,15 +70,22 @@
         padding: 5px;
         color: #868686;
       }
-      .dateFirst {
+      .date-first {
         color: #0a0a0a;
       }
-      .dateFirst ~ .day {
+      .date-first ~ .day {
         color: #0a0a0a;
       }
-      .dateLast ~ .day {
+      .date-last ~ .day {
         color: #868686;
       }
+      .date-now {
+        color: #0b58a2;
+      }
+      .date-index {
+        color: red;
+      }
+
     }
   }
 </style>
@@ -93,10 +101,8 @@
         weekDay: '',
         totalDays: '',
         initData: null,
-        isColor: false,
-        startIndex: 0,
-        lastIndex: 0,
-        nowMonthData: null
+        nowMonthData: [],
+        nowDay: null
       };
     },
     created() {
@@ -113,6 +119,7 @@
         vm.initData = getDaysInOneMonth.init(year, month);
         vm.weekDay = this.initData.weekday;
         vm.dateData = this.initData.days;
+        vm.nowDay = vm.initData.nowDay;
         vm.totalDays = (this.initData.totalDays + this.initData.weekday) - 1;
       },
       getDateData() {
@@ -145,17 +152,28 @@
     },
     watch: {
       calendarData(val) {
-        console.log(val);
         const vm = this;
         for (let i in val) {
           if (val[i].month === vm.nowMonth) {
             vm.nowMonthData = val[i].days;
-            let days = val[i].days;
-            console.log(vm.nowMonthData);
-            for (let j in days) {
-              console.log(vm.dateData.indexOf(days[j]));
+          } else {
+            vm.nowMonthData = [];
+          }
+        }
+        vm.$on('changeMonth', month => {
+          for (let i in val) {
+            if (val[i].month === month) {
+              vm.nowMonthData = val[i].days;
+            } else {
+              vm.nowMonthData = [];
             }
           }
+        })
+      },
+      nowMonth(newV, oldV) {
+        const vm = this;
+        if (newV != oldV) {
+          vm.$emit('changeMonth', newV);
         }
       }
     }
