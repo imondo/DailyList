@@ -32,7 +32,7 @@
       position: relative;
       margin: 5px 0;
       width: 100%;
-      height: 70px;
+      height: 58px;
       .list {
         position: absolute;
         top: 0;
@@ -44,7 +44,7 @@
         transform: translateX(0);
         background-color: #FFFFFF;
         &.deleteSlider {
-          transform: translateX(-70px);
+          transform: translateX(-58px);
         }
         .done-icon {
           color: red;
@@ -54,9 +54,9 @@
         position: absolute;
         right: 0;
         top: 0;
-        width: 70px;
-        height: 70px;
-        line-height: 70px;
+        width: 58px;
+        height: 58px;
+        line-height: 58px;
         text-align: center;
         background-color: red;
         color: #FFFFFF;

@@ -1,4 +1,4 @@
-@import "config";
+@import "skin";
 @import "minx";
 .mu-bottom-nav {
   background-color: @body-color;
@@ -33,16 +33,32 @@
   margin-top: -20px;
 }
 .mu-item-wrapper {
+  background-color: @popup-font-color;
   border-top:  1px solid @border-color;
 }
 .mu-item {
-  .px2rem(min-height, 48);
+  .px2rem(min-height, 36);
+  padding: 10px;
 }
 .mu-item-right {
-  right: 0;
+  right: 12px;
 }
 .mu-bottom-sheet {
   text-align: center;
+}
+.mu-dialog {
+  .px2rem(font-size, 22);
+}
+.mu-dialog-title {
+  .px2rem(padding, 20);
+  .px2rem(font-size, 22);
+}
+.mu-dialog-body {
+  .px2rem(padding, 20);
+  text-align: center;
+}
+.mu-item-left, .mu-item-right {
+  width: auto;
 }
 .yes-btn {
   .mu-item {

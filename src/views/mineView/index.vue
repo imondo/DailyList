@@ -1,22 +1,59 @@
 <template>
   <div class="mine-wrapper">
-    <mu-list>
-      <mu-list-item :value="1" :title="user.username" to="/mine/info">
-        <mu-avatar src="../../src/assets/user.png" slot="leftAvatar"/>
+    <div class="mine-top">
+      <div class="mine-info">
+        <span class="mine-info-img">
+          <img src="../../assets/user.png" alt="">
+        </span>
+        <h3>{{user.username}}</h3>
+        <span class="site-subtitle">{{user.signature}}</span>
+      </div>
+    </div>
+    <mu-list class="mine-list">
+      <mu-list-item :value="1" title="编辑" to="/mine/info">
         <i class="mu-item-right iconfont icon-gengduo"></i>
       </mu-list-item>
       <mu-list-item title="关于">
         <i class="mu-item-right iconfont icon-gengduo"></i>
       </mu-list-item>
-      <mu-raised-button label="退出" @click="logOut()" class="demo-raised-button" secondary fullWidth/>
     </mu-list>
+    <mu-raised-button label="退出账号" @click="open" class="logout-button" fullWidth/>
+    <mu-dialog :open="dialog" @close="close">
+      <h2>确认退出？</h2>
+      <mu-flat-button slot="actions" @click="close" primary label="取消"/>
+      <mu-flat-button slot="actions" primary @click="logOut" label="确定"/>
+    </mu-dialog>
   </div>
 </template>
 <style lang="less" rel="stylesheet/less">
   .mine-wrapper {
     width: 100%;
-    .demo-raised-button {
+    .mine-top {
+      width: 100%;
+      background-color: #FFFFFF;
+      text-align: center;
+      .mine-info {
+        padding: 15px 0;
+        .mine-info-img {
+          display: inline-block;
+          width: 100px;
+          height: 100px;
+          overflow: hidden;
+          border-radius: 50%;
+          img {
+            width: 100%;
+          }
+        }
+      }
+    }
+    .mine-list {
+      .mu-item-wrapper {
+        background-color: #FFFFFF;
+      }
+    }
+    .logout-button {
       margin-top: 15px;
+      color: red;
     }
   }
 </style>
@@ -25,7 +62,8 @@
   export default {
     data() {
       return {
-        user: {}
+        user: {},
+        dialog: false
       }
     },
     created() {
@@ -37,6 +75,12 @@
           this.$alert(true, '退出成功');
           this.$router.push({path: 'login'});
         })
+      },
+      open () {
+        this.dialog = true
+      },
+      close () {
+        this.dialog = false
       }
     }
   }

@@ -1,6 +1,10 @@
 <template>
   <div class="wrapper">
-    <v-header></v-header>
+    <v-header>
+      <slot>
+        <span>保存</span>
+      </slot>
+    </v-header>
     <v-main></v-main>
     <v-bottom></v-bottom>
   </div>

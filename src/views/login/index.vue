@@ -118,7 +118,9 @@
         loginData: {
           mobilePhoneNumber: '18573159619',
           password: '123456',
-          smsCode: ''
+          smsCode: '',
+          signature: '',
+          sex: ''
         }
       }
     },
