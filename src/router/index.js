@@ -47,7 +47,7 @@ export const RouterMap = [
 ];
 
 export default new Router({
-  mode: 'history',
+  mode: 'hash',
   base: __dirname,
   routes: RouterMap,
   linkActiveClass: 'active'
