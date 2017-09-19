@@ -1,5 +1,5 @@
 <template>
-    <div class="main-wrapper">
+    <div>
       <router-view></router-view>
     </div>
 </template>
@@ -8,7 +8,6 @@
    .main-wrapper {
      .px2rem(padding-top, 100);
      padding-bottom: 56px;
-     background-color: #e9e9e9;
    }
    .main {
      width: 100%;

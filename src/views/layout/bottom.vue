@@ -1,5 +1,5 @@
 <template>
-  <div class="bottom-wrapper">
+  <div>
     <mu-paper>
       <mu-bottom-nav :value="bottomNav" @change="handleChange">
         <mu-bottom-nav-item value="index" :to="{path: '/index'}" icon="today"/>

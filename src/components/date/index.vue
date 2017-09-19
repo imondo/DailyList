@@ -23,8 +23,9 @@
     <ul class="calendar-day">
       <li v-for="(date, index) in dateData" class="day" :class="{'date-first':weekDay===index,'date-last':totalDays===index}">
         <span class="date-info"
-          :class="{'date-index':nowMonthData.indexOf(date) > -1,'date-now':nowDay.day===date}"
+              :class="{'date-index':nowMonthData.indexOf(date) > -1,'date-now':changeMonth===nowMonth && nowDay.day===date}"
         >{{date}}</span>
+        <span class="date-bg"></span>
       </li>
     </ul>
   </div>
@@ -66,9 +67,24 @@
     .calendar-day {
       margin-top: 5px;
       .day {
-        border: 1px solid #FFFFFF;
         padding: 5px;
         color: #868686;
+        position: relative;
+        .date-bg {
+          position: absolute;
+          top: -1px;
+          left: 6px;
+          height: 34px;
+          background-color: #03A9F4;
+          border-radius: 50%;
+          opacity: 0;
+          -webkit-transform: scale(0);
+          -ms-transform: scale(0);
+          transform: scale(0);
+          -webkit-transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+          transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+          width: 34px;
+        }
       }
       .date-first {
         color: #0a0a0a;
@@ -80,10 +96,17 @@
         color: #868686;
       }
       .date-now {
-        color: #0b58a2;
+        color: #03A9F4;
       }
       .date-index {
-        color: red;
+        position: absolute;
+        left: 15px;
+        z-index: 10;
+        color: #FFFFFF;
+      }
+      .date-index ~ .date-bg {
+        transform: scale(1);
+        opacity: 1;
       }
 
     }
@@ -111,6 +134,9 @@
     computed: {
       nowMonth() {
         return this.year + '-' + ((this.month + 1) < 10 ? '0' + (this.month + 1) : (this.month + 1));
+      },
+      changeMonth() {
+        return this.nowDay.year + '-' + ((this.nowDay.month + 1) < 10 ? '0' + (this.nowDay.month + 1) : (this.nowDay.month + 1));
       }
     },
     methods: {
@@ -162,6 +188,7 @@
         }
         vm.$on('changeMonth', month => {
           for (let i in val) {
+            console.log(val);
             if (val[i].month === month) {
               vm.nowMonthData = val[i].days;
             } else {

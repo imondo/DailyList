@@ -3,7 +3,7 @@
     <div class="mine-top">
       <div class="mine-info">
         <span class="mine-info-img">
-          <img src="../../assets/user.png" alt="">
+          <img :src="user.avatarImg?user.avatarImg:'../../src/assets/user.png'" alt="">
         </span>
         <h3>{{user.username}}</h3>
         <span class="site-subtitle">{{user.signature}}</span>
@@ -42,6 +42,7 @@
           border-radius: 50%;
           img {
             width: 100%;
+            height: 100%;
           }
         }
       }
@@ -53,7 +54,9 @@
     }
     .logout-button {
       margin-top: 15px;
-      color: red;
+      .mu-raised-button-label {
+        color: red;
+      }
     }
   }
 </style>

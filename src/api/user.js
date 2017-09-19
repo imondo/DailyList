@@ -1,4 +1,5 @@
 import vueAxios from 'utils/axios';
+import AV from 'leancloud-storage';
 
 export function updateUser(userId, data) {
   return vueAxios({
@@ -15,3 +16,9 @@ export function updatePassword(userId, data) {
     data: data
   });
 }
+
+export function uploadAvatarImage(img) {
+  let file = new AV.File(img.name, img);
+  return file.save();
+}
+

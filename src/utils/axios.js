@@ -28,7 +28,6 @@ vueAxios.interceptors.response.use(response => {
   store.commit('SET_PROGRESS', false);
   return response;
 }, error => {
-  console.log();
   let errMsg = JSON.parse(JSON.stringify(error)).response.data.error;
   let status = JSON.parse(JSON.stringify(error)).response.status;
   store.commit('SET_POPUPSTATE', true);

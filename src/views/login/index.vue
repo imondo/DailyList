@@ -7,16 +7,16 @@
         <mu-text-field label="密码" hintText="请输入密码" type="password" v-model="loginData.password" labelFloat/><br/>
         <div class="sms-code">
           <mu-text-field label="验证码" hintText="请输入验证码" v-model="loginData.smsCode" labelFloat v-show="isReg"/>
-          <mu-raised-button label="验证" class="demo-raised-button" secondary v-show="isReg" @click="smsSave()"/>
+          <mu-raised-button label="验证" class="demo-raised-button"  v-show="isReg" @click="smsSave()"/>
         </div>
-        <mu-raised-button label="登录" @click="saveLogin()" class="demo-raised-button" secondary v-show="!isReg" fullWidth/>
+        <mu-raised-button label="登录" @click="saveLogin()" class="demo-raised-button"  v-show="!isReg" fullWidth/>
       </div>
       <div class="login-bottom">
-        <mu-raised-button label="注册" @click="isReg=true" v-show="!isReg" class="demo-raised-button" secondary fullWidth/>
-        <mu-raised-button label="注册" @click="saveRegister()" v-show="isReg" class="demo-raised-button" secondary fullWidth/>
+        <mu-raised-button label="注册" @click="isReg=true" v-show="!isReg" class="demo-raised-button"  fullWidth/>
+        <mu-raised-button label="注册" @click="saveRegister()" v-show="isReg" class="demo-raised-button"  fullWidth/>
       </div>
       <div class="login-other">
-        <mu-raised-button label="已有账号" @click="isReg=false" v-show="isReg" class="demo-raised-button" secondary fullWidth/>
+        <mu-raised-button label="已有账号" @click="isReg=false" v-show="isReg" class="demo-raised-button"  fullWidth/>
       </div>
       <div class="more-sign">
         <h6>社交账号登录</h6>
@@ -42,6 +42,7 @@
     display:flex;
     justify-content:center;
     align-items:center;
+    background-color: #FFFFFF;
     .login {
       text-align: center;
     }

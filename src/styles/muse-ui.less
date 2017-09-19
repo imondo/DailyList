@@ -1,8 +1,8 @@
-@import "skin";
 @import "minx";
+.mu-circle-spinner {
+  border-color: @nav-color;
+}
 .mu-bottom-nav {
-  background-color: @body-color;
-  border-top: 1px solid @border-color;
   .mu-buttom-item {
     color: @nav-color;
   }
@@ -11,7 +11,7 @@
   }
   .mu-bottom-item-active {
     .mu-bottom-item-icon, .mu-bottom-item-text {
-      color: @nav-active-color;
+      color: @theme-color;
     }
   }
 }
@@ -47,15 +47,18 @@
   text-align: center;
 }
 .mu-dialog {
-  .px2rem(font-size, 22);
+  .px2rem(font-size, 25);
 }
 .mu-dialog-title {
   .px2rem(padding, 20);
-  .px2rem(font-size, 22);
+  .px2rem(font-size, 25);
 }
 .mu-dialog-body {
   .px2rem(padding, 20);
   text-align: center;
+}
+.mu-flat-button-primary {
+  color: @popup-bg-color;
 }
 .mu-item-left, .mu-item-right {
   width: auto;
@@ -64,4 +67,39 @@
   .mu-item {
     color: @btn-color;
   }
+}
+.demo-raised-button {
+  background-color: @theme-color;
+  color: #ffffff;
+}
+.mu-text-field-focus-line {
+  background-color: @theme-color;
+}
+.mu-float-button {
+  background-color: @theme-color;
+}
+.mu-text-field.focus-state {
+  color: inherit;
+}
+.mu-raised-button {
+  box-shadow: none;
+  border-radius: 0;
+}
+.mu-radio input[type=radio]:checked + .mu-radio-wrapper .mu-radio-ripple-wrapper, .mu-radio-icon-checked, .mu-radio input[type=radio]:checked + .mu-radio-wrapper .mu-radio-icon-uncheck {
+  color: @theme-color;
+}
+.mu-day-button {
+  &.now {
+    .mu-day-button-text {
+      color: @theme-color;
+    }
+  }
+  &.selected {
+    .mu-day-button-text {
+      color: #FFFFFF;
+    }
+  }
+}
+.mu-date-display, .mu-day-button-bg {
+  background-color: @theme-color;
 }

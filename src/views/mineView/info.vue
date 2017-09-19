@@ -2,7 +2,7 @@
   <div class="info-wrapper">
     <mu-list>
       <mu-list-item title="头像" @click="uploadOpen">
-        <mu-avatar src="../../src/assets/user.png" slot="rightAvatar"/>
+        <mu-avatar :src="userInfo.avatarImg?userInfo.avatarImg:'../../src/assets/user.png'" slot="rightAvatar"/>
       </mu-list-item>
     </mu-list>
     <mu-list>
@@ -22,7 +22,7 @@
       </mu-list-item>
     </mu-list>
     <mu-raised-button label="修改密码" class="change-psd-button" fullWidth :to="{name:'edit',params: {id:'password'}}"/>
-    <v-upload-Avatar title="上传头像" :bottomSheet="bottomSheet" class="hidden"></v-upload-Avatar>
+    <v-upload-Avatar v-model="target" @onChange="uploadChange" class="hidden" ref="upload"></v-upload-Avatar>
   </div>
 </template>
 <style lang="less" rel="stylesheet/less">
@@ -32,15 +32,21 @@
     }
     .change-psd-button {
       margin-top: 15px;
-      .mu-raised-button-label {
-        color: red;
-      }
     }
+  }
+  .upload {
+    height: 100%;
   }
 </style>
 <script type='text/ecmascript-6'>
   import uploadAvatar from 'components/uploadAvatar';
+  import { uploadAvatarImage, updateUser } from 'api/user';
   export default {
+    data() {
+      return {
+        target: null
+      }
+    },
     computed: {
       userInfo() {
         return this.$store.getters.userInfo;
@@ -51,8 +57,15 @@
     },
     methods: {
       uploadOpen() {
-        const vm = this;
-        vm.$store.commit("SET_SHEET", true);
+        this.$refs.upload.$el.childNodes[2].click();
+      },
+      uploadChange(files, name) {
+        uploadAvatarImage(files).then((res) => {
+          let avatarImg = JSON.parse(JSON.stringify(res)).url;
+          this.$store.dispatch('UpdateUser', {avatarImg: avatarImg}).then((res) => {
+            console.log(this.userInfo)
+          })
+        });
       }
     },
     components: {

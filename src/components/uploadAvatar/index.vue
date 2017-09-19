@@ -1,20 +1,8 @@
 <template>
   <div class="upload-wrapper">
-    <mu-raised-button label="Open Bottom Sheet" />
-    <mu-bottom-sheet :open="bottomSheet" @close="closeBottomSheet">
-      <mu-list @itemClick="closeBottomSheet">
-        <mu-sub-header>{{title}}</mu-sub-header>
-        <mu-list-item title="拍照" class="upload-box">
-          <label for="upload-input" class="upload-box-label"></label>
-        </mu-list-item>
-        <mu-list-item title="从相册选择" class="upload-box">
-          <label for="upload-input" class="upload-box-label"></label>
-        </mu-list-item>
-        <mu-list-item title="取消" @itemClick="closeBottomSheet"/>
-      </mu-list>
-      <input type='file' id="upload-input" @change="handleFileChange" class="hidden"/>
-
-    </mu-bottom-sheet>
+    <label for="upload-input" class="upload-box-label"></label>
+    <input type='file' id="upload-input" @change="handleFileChange" ref="inputer" class="hidden"/>
+    <img :src="dataUrl"/>
   </div>
 </template>
 <style lang="less" rel="stylesheet/less">
@@ -32,45 +20,39 @@
 <script type='text/ecmascript-6'>
   export default {
     props: {
-      bottomSheet: {
-        type: Boolean
-      },
-      title: {
-        type: String
+      value: {
+        default: undefined
       }
     },
     data() {
       return {
-        uploadImage: ''
+        dataUrl: ''
       }
     },
     methods: {
-      closeBottomSheet () {
-        this.$store.commit("SET_SHEET", false);
+      imgPreview (file) {
+        let self = this;
+        if (!file || !window.FileReader) return;
+        if (/^image/.test(file.type)) {
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onloadend = function () {
+            self.dataUrl = this.result;
+          }
+        }
       },
       handleFileChange (e) {
-        console.log(e);
-        let inputDOM = this.$refs.inputer;
-        // 通过DOM取文件数据
-        this.file = inputDOM.files[0];
-        this.errText = '';
-        console.log(inputDOM);
-        let size = Math.floor(this.file.size / 1024);
-//        if (size > ...) {
-//          // 这里可以加个文件大小控制
-//          return false
-//        }
+        if (typeof e.target === 'undefined'){
+          this.file = e[0];
+        }
+        else this.file = e.target.files[0];
+        this.$emit('input', this.file);
 
-        // 触发这个组件对象的input事件
-//        this.$emit('input', this.file);
-
-        // 这里就可以获取到文件的名字了
+        this.imgPreview(this.file);
         this.fileName = this.file.name;
 
-        // 这里加个回调也是可以的
-//        this.onChange && this.onChange(this.file, inputDOM.value);
-
-      },
+        this.$emit('onChange', this.file, this.file.name);
+      }
     }
   }
 </script>

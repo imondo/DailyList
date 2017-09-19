@@ -30,7 +30,7 @@
     }
     .list-wrapper {
       position: relative;
-      margin: 5px 0;
+      margin-bottom: 8px;
       width: 100%;
       height: 58px;
       .list {
@@ -47,7 +47,7 @@
           transform: translateX(-58px);
         }
         .done-icon {
-          color: red;
+          color: #03A9F4;
         }
       }
       .list-del {
@@ -102,7 +102,6 @@
               }
               return v;
             });
-            console.log(vm.list);
           }
         })
       },

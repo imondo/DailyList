@@ -3,6 +3,7 @@
     <div class="details-top">
         <span class="details-icon" @click="done" :class="{done: detailsData.details.isToday}">
             <mu-icon value="done" class="details-icon-done"/>
+            <i class="done-bg"></i>
         </span>
     </div>
     <div class="details-content main">
@@ -30,17 +31,37 @@
         border-radius: 50%;
         webkit-transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
         transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
-        color: rgba(0, 0, 0, 0.87);
+        color: #FFFFFF;
         background-color: #E9E9E9;
         box-shadow: 0 1px 6px rgba(0, 0, 0, 0.117647), 0 1px 4px rgba(0, 0, 0, 0.117647);
+        .done-bg {
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100px;
+          width: 100px;
+          background-color: #03A9F4;
+          border-radius: 50%;
+          opacity: 0;
+          -webkit-transform: scale(0);
+          -ms-transform: scale(0);
+          transform: scale(0);
+          -webkit-transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+          transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+        }
         &.done {
-          color: red;
+          color: #FFFFFF;
+          .done-bg {
+            transform: scale(1);
+            opacity: 1;
+          }
         }
         .details-icon-done {
           font-size: 50px;
           position: absolute;
           left: 27px;
           top: 22px;
+          z-index: 10;
         }
       }
     }
@@ -139,7 +160,7 @@
 
         updateList(params, id).then((res) => {
           if (res.status === 200) {
-            console.log(res);
+            console.log(this);
           }
         });
       },

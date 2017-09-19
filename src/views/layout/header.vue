@@ -1,5 +1,5 @@
 <template>
-  <div class="header-wrapper">
+  <div>
     <i class="iconfont icon-fanhui left" @click="goBack()" v-show="back"></i>
     <span>{{title}}</span>
     <span class="edit-btn" v-show="editBtn" @click="saveEdit()">保存</span>
@@ -13,16 +13,14 @@
     z-index: 2;
     font-family: 'Microsoft YaHei';
     font-weight: bold;
-    .px2rem(font-size, 30);
+    .px2rem(font-size, 35);
     .px2rem(height, 100);
     letter-spacing: 2px;
-    background-color: #FFFFFF;
-    border-bottom: 1px solid #E9E9E9;
     text-align: center;
     .px2rem(line-height, 100);
     .left {
       position: absolute;
-      left: 5px;
+      left: 15px;
     }
     .edit-btn {
       position: absolute;
@@ -39,9 +37,6 @@
         back: false,
         editBtn: false
       }
-    },
-    computed: {
-
     },
     created() {
       this.title = this.$route.meta.title;

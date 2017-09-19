@@ -18,7 +18,6 @@ const states = {
     },
     SET_SHEET: (state, bottomSheet) => {
       state.bottomSheet = bottomSheet;
-      console.log(state.bottomSheet);
     },
     SET_CALENDAR: (state, calendarData) => {
         state.calendarData = calendarData;

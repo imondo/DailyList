@@ -42,7 +42,7 @@
     },
     methods: {
       check(val) {
-        console.log(val);
+
       },
       addSave() {
         addList(this.addData).then((res) => {
