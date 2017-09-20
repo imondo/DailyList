@@ -21,7 +21,7 @@
 .mu-popup {
   .px2rem(padding, 16);
   .px2rem(border-radius, 5);
-  .px2rem(font-size, 14);
+  .px2rem(font-size, 30);
   background-color: @popup-bg-color!important;
   color: @popup-font-color;
 }
@@ -32,9 +32,18 @@
   margin-left: -20px;
   margin-top: -20px;
 }
-.mu-item-wrapper {
-  background-color: @popup-font-color;
-  border-top:  1px solid @border-color;
+.mu-list {
+  div {
+    .mu-item-wrapper {
+      background-color: @popup-font-color;
+      border-top:  1px solid @border-color;
+    }
+    &:last-child {
+      .mu-item-wrapper {
+        border-bottom:  1px solid @border-color;
+      }
+    }
+  }
 }
 .mu-item {
   .px2rem(min-height, 36);

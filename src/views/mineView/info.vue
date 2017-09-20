@@ -1,7 +1,7 @@
 <template>
   <div class="info-wrapper">
     <mu-list>
-      <mu-list-item title="头像" @click="uploadOpen">
+      <mu-list-item title="头像" v-touch:tap="uploadOpen">
         <mu-avatar :src="userInfo.avatarImg?userInfo.avatarImg:'../../src/assets/user.png'" slot="rightAvatar"/>
       </mu-list-item>
     </mu-list>
@@ -21,7 +21,9 @@
         <span slot="right">{{userInfo.signature}}</span>
       </mu-list-item>
     </mu-list>
-    <mu-raised-button label="修改密码" class="change-psd-button" fullWidth :to="{name:'edit',params: {id:'password'}}"/>
+    <mu-list class="change-psd-button">
+      <mu-list-item title="修改密码" :to="{name:'edit',params: {id:'password'}}"></mu-list-item>
+    </mu-list>
     <v-upload-Avatar v-model="target" @onChange="uploadChange" class="hidden" ref="upload"></v-upload-Avatar>
   </div>
 </template>
@@ -32,6 +34,7 @@
     }
     .change-psd-button {
       margin-top: 15px;
+      text-align: center;
     }
   }
   .upload {

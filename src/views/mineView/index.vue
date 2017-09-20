@@ -10,18 +10,20 @@
       </div>
     </div>
     <mu-list class="mine-list">
-      <mu-list-item :value="1" title="编辑" to="/mine/info">
+      <mu-list-item title="编辑" to="/mine/info">
         <i class="mu-item-right iconfont icon-gengduo"></i>
       </mu-list-item>
       <mu-list-item title="关于">
         <i class="mu-item-right iconfont icon-gengduo"></i>
       </mu-list-item>
     </mu-list>
-    <mu-raised-button label="退出账号" @click="open" class="logout-button" fullWidth/>
-    <mu-dialog :open="dialog" @close="close">
+    <mu-list>
+      <mu-list-item title="退出账号" v-touch:tap.stop="open" class="logout-button"></mu-list-item>
+    </mu-list>
+    <mu-dialog :open="dialog">
       <h2>确认退出？</h2>
-      <mu-flat-button slot="actions" @click="close" primary label="取消"/>
-      <mu-flat-button slot="actions" primary @click="logOut" label="确定"/>
+      <mu-flat-button slot="actions" v-touch:tap.stop="close" primary label="取消"/>
+      <mu-flat-button slot="actions" primary v-touch:tap.stop="logOut" label="确定"/>
     </mu-dialog>
   </div>
 </template>
@@ -54,10 +56,17 @@
     }
     .logout-button {
       margin-top: 15px;
-      .mu-raised-button-label {
+      text-align: center;
+      .mu-item-title {
         color: red;
       }
     }
+  }
+  .mu-flat-button {
+    width: 50%;
+  }
+  .mu-flat-button-label {
+    font-size: 16px;
   }
 </style>
 <script type='text/ecmascript-6'>
@@ -75,7 +84,6 @@
     methods: {
       logOut() {
         store.dispatch('LoginOut').then(() => {
-          this.$alert(true, '退出成功');
           this.$router.push({path: 'login'});
         })
       },

@@ -23,10 +23,10 @@
     watch: {
       popupState (val) {
         if (val) {
-          setTimeout(() => {
-            this.$store.commit('SET_POPUPSTATE', false);
-            this.$store.commit('SET_POPUPMSG', '');
-          }, 2000)
+//          setTimeout(() => {
+//            this.$store.commit('SET_POPUPSTATE', false);
+//            this.$store.commit('SET_POPUPMSG', '');
+//          }, 2000)
         }
       }
     }

@@ -3,7 +3,9 @@
     <mu-paper>
       <mu-bottom-nav :value="bottomNav" @change="handleChange">
         <mu-bottom-nav-item value="index" :to="{path: '/index'}" icon="today"/>
-        <mu-float-button icon="add" mini :to="{path: '/add'}" class="demo-float-button"/>
+        <mu-bottom-nav-item>
+          <mu-float-button icon="add" mini :to="{path: '/add'}" class="demo-float-button"/>
+        </mu-bottom-nav-item>
         <mu-bottom-nav-item value="user" :to="{path: '/mine'}" icon="person"/>
       </mu-bottom-nav>
     </mu-paper>

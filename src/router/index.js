@@ -15,6 +15,11 @@ const editView = reslove => require(['views/mineView/edit'], reslove);
 
 Vue.use(Router);
 
+Router.prototype.goBack = function () {
+  this.isBack = true;
+  window.history.go(-1)
+};
+
 export const RouterMap = [
   {
     path: '/',

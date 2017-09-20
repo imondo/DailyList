@@ -4,7 +4,7 @@
     <mu-bottom-sheet :open="bottomSheet" @close="closeBottomSheet">
       <mu-list @itemClick="closeBottomSheet">
         <mu-sub-header>{{title}}</mu-sub-header>
-        <mu-list-item title="删除" @click="makeSure" class="yes-btn"/>
+        <mu-list-item title="删除" v-touch:tap="makeSure" class="yes-btn"/>
         <mu-list-item title="取消"/>
       </mu-list>
     </mu-bottom-sheet>

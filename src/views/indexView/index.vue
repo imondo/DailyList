@@ -12,7 +12,9 @@
             <span slot="describe">已坚持{{item.details.sumTotal}}天</span>
             <mu-icon slot="right" :value="item.details.isToday?'done':'info'" :class="{'done-icon': item.details.isToday}"/>
           </mu-list-item>
-          <mu-icon class="list-del" slot="right" value="delete_sweep" ref="remove" @click.stop="remove(index, item)"/>
+          <mu-icon slot="right" class="list-del"
+                   v-touch:tap.self.prevent.capture.stop="remove(index, item)"
+                   value="delete_sweep"/>
         </p>
         <v-bottom-sheet title="确定要删除吗？" :bottomSheet="bottomSheet" @callback="deleteList" class="hidden"></v-bottom-sheet>
       </mu-list>
@@ -43,6 +45,9 @@
         transition: 0.3s;
         transform: translateX(0);
         background-color: #FFFFFF;
+        .mu-item-wrapper {
+          border: none;
+        }
         &.deleteSlider {
           transform: translateX(-58px);
         }
@@ -60,6 +65,7 @@
         text-align: center;
         background-color: red;
         color: #FFFFFF;
+        text-align: center;
       }
     }
   }
@@ -117,11 +123,13 @@
       },
       remove(index, item) {
         const vm = this;
-        vm.itemData = {
-          index: index,
-          item: item
+        return function() {
+          vm.itemData = {
+            index: index,
+            item: item
+          };
+          vm.$store.commit("SET_SHEET", true);
         };
-        vm.$store.commit("SET_SHEET", true);
       },
       deleteList() {
         const vm = this;

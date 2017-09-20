@@ -1,8 +1,8 @@
 <template>
   <div>
-    <i class="iconfont icon-fanhui left" @click="goBack()" v-show="back"></i>
+    <i class="iconfont icon-fanhui left" v-touch:tap.stop="goBack" v-show="back"></i>
     <span>{{title}}</span>
-    <span class="edit-btn" v-show="editBtn" @click="saveEdit()">保存</span>
+    <span class="edit-btn" v-show="editBtn" v-touch:tap.stop="saveEdit">保存</span>
   </div>
 </template>
 <style lang="less" rel="stylesheet/less">
@@ -13,18 +13,20 @@
     z-index: 2;
     font-family: 'Microsoft YaHei';
     font-weight: bold;
-    .px2rem(font-size, 35);
+    .px2rem(font-size, 37);
     .px2rem(height, 100);
     letter-spacing: 2px;
     text-align: center;
     .px2rem(line-height, 100);
     .left {
       position: absolute;
-      left: 15px;
+      left: 10px;
+      padding: 0 5px;
     }
     .edit-btn {
       position: absolute;
-      right: 15px;
+      right: 10px;
+      padding: 0 5px;
     }
   }
 </style>
@@ -43,7 +45,7 @@
     },
     methods: {
       goBack() {
-        this.$router.go(-1);
+        this.$router.goBack();
       },
       saveEdit() {
         let params = {};

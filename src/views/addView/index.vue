@@ -1,7 +1,7 @@
 <template>
   <div class="add-wrapper">
-    <mu-text-field hintText="输入你的目标" v-model="addData.goal" :required="true" @blur="check(addData.goal)"/><br/>
-    <mu-text-field hintText="一些激励的话" v-model="addData.snippet" :required="true" @blur="check(addData.snippet)"/><br/>
+    <mu-text-field hintText="输入你的目标" v-model="addData.goal" :required="true" :underlineShow="false" @blur="check(addData.goal)"/><br/>
+    <mu-text-field hintText="一些激励的话" v-model="addData.snippet" :required="true" :underlineShow="false" @blur="check(addData.snippet)"/><br/>
     <mu-date-picker hintText="计划坚持日期" v-model="addData.targetDate"/> <br/>
     <mu-raised-button label="保存" class="demo-raised-button" secondary @click="addSave()"/>
   </div>
@@ -14,6 +14,12 @@
     top: 50%;
     margin-top: -127px;
     text-align: center;
+    .mu-text-field-input {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    }
+    .mu-text-field-line {
+      height: 0;
+    }
   }
 </style>
 <script type='text/ecmascript-6'>

@@ -1,7 +1,7 @@
 <template>
   <div class="details-wrapper">
     <div class="details-top">
-        <span class="details-icon" @click="done" :class="{done: detailsData.details.isToday}">
+        <span class="details-icon" v-touch:tap="done" :class="{done: detailsData.details.isToday}">
             <mu-icon value="done" class="details-icon-done"/>
             <i class="done-bg"></i>
         </span>

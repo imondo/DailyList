@@ -3,10 +3,10 @@
     <div class="login">
       <h3 v-text="isReg?'注册':'登录'">登录</h3>
       <div class="login-content">
-        <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="loginData.mobilePhoneNumber" type="number" labelFloat/><br/>
-        <mu-text-field label="密码" hintText="请输入密码" type="password" v-model="loginData.password" labelFloat/><br/>
+        <mu-text-field label="手机号码" hintText="请输入手机号码" v-model="loginData.mobilePhoneNumber" type="number" :underlineShow="false" labelFloat/><br/>
+        <mu-text-field label="密码" hintText="请输入密码" type="password" v-model="loginData.password" :underlineShow="false" labelFloat/><br/>
         <div class="sms-code">
-          <mu-text-field label="验证码" hintText="请输入验证码" v-model="loginData.smsCode" labelFloat v-show="isReg"/>
+          <mu-text-field label="验证码" hintText="请输入验证码" v-model="loginData.smsCode" labelFloat :underlineShow="false" v-show="isReg"/>
           <mu-raised-button label="验证" class="demo-raised-button"  v-show="isReg" @click="smsSave()"/>
         </div>
         <mu-raised-button label="登录" @click="saveLogin()" class="demo-raised-button"  v-show="!isReg" fullWidth/>
@@ -61,6 +61,9 @@
           display: inline-block;
         }
       }
+    }
+    .mu-text-field-input {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
     }
     .more-sign {
       h6 {

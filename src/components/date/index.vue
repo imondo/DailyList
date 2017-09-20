@@ -3,10 +3,10 @@
     <ul class="calendar">
       <li class="calendar-title">
         <h3>{{nowMonth}}</h3>
-        <a href="javascript:;" class="calendar-prev-btn" @click="prev">
+        <a href="javascript:;" class="calendar-prev-btn" v-touch:tap="prev">
           <i class="iconfont icon-fanhui"></i>
         </a>
-        <a href="javascript:;" class="calendar-next-btn" @click="next">
+        <a href="javascript:;" class="calendar-next-btn" v-touch:tap="next">
           <i class="iconfont icon-gengduo"></i>
         </a>
       </li>
@@ -43,6 +43,7 @@
           position: absolute;
           top: 2px;
           padding: 5px;
+          font-weight: bold;
           color: #0a0a0a;
         }
         .calendar-prev-btn {
