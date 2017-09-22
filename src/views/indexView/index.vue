@@ -8,7 +8,7 @@
                         v-touch:right.capture='touchRight'
                         :to="{name:'details',params:{id: item.objectId}}"
                         :class="{deleteSlider: index==nowIndex}">
-            <mu-avatar src="../../src/assets/user.png" slot="leftAvatar"/>
+            <mu-avatar src="static/img/user.png" slot="leftAvatar"/>
             <span slot="describe">已坚持{{item.details.sumTotal}}天</span>
             <mu-icon slot="right" :value="item.details.isToday?'done':'info'" :class="{'done-icon': item.details.isToday}"/>
           </mu-list-item>
