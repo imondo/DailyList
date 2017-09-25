@@ -20,6 +20,7 @@ const user = {
       state.info = info;
     },
     SET_USERNAME: (state, username) => {
+      console.log(username);
       state.username = username;
     },
     SET_USERSEX: (state, sex) => {

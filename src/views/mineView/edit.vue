@@ -2,7 +2,7 @@
   <div class="edit-wrapper">
     <mu-list v-show="name==='username'">
       <mu-list-item>
-        <mu-text-field v-model="username" @blur="commitVal(username, 'USERNAME')" fullWidth :underlineShow="false"/>
+        <mu-text-field v-model="username" @input="commitVal(username, 'USERNAME')" fullWidth :underlineShow="false"/>
       </mu-list-item>
     </mu-list>
     <mu-list v-show="name==='sex'">
@@ -15,15 +15,15 @@
     </mu-list>
     <mu-list v-show="name==='signature'">
       <mu-list-item>
-        <mu-text-field v-model="signature" @blur="commitVal(signature, 'USERSIGN')" fullWidth :underlineShow="false"/>
+        <mu-text-field v-model="signature" @input="commitVal(signature, 'USERSIGN')" fullWidth :underlineShow="false"/>
       </mu-list-item>
     </mu-list>
     <mu-list v-show="name==='password'">
       <mu-list-item title="旧密码">
-        <mu-text-field v-model="password.old_password" @blur="commitVal(password, 'USERPSD')" fullWidth :underlineShow="false"/>
+        <mu-text-field v-model="password.old_password" @input="commitVal(password, 'USERPSD')" fullWidth :underlineShow="false"/>
       </mu-list-item>
       <mu-list-item title="新密码">
-        <mu-text-field v-model="password.new_password" @blur="commitVal(password, 'USERPSD')" fullWidth :underlineShow="false"/>
+        <mu-text-field v-model="password.new_password" @input="commitVal(password, 'USERPSD')" fullWidth :underlineShow="false"/>
       </mu-list-item>
     </mu-list>
   </div>

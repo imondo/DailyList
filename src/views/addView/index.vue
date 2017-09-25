@@ -9,8 +9,7 @@
 <style lang="less" rel="stylesheet/less">
   .add-wrapper {
     position: absolute;
-    left: 50%;
-    margin-left: -127px;
+    left: 0;
     top: 50%;
     margin-top: -127px;
     text-align: center;
