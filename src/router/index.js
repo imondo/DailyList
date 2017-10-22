@@ -12,6 +12,7 @@ const addView = reslove => require(['views/addView/index'], reslove);
 const userView = reslove => require(['views/mineView/index'], reslove);
 const infoView = reslove => require(['views/mineView/info'], reslove);
 const editView = reslove => require(['views/mineView/edit'], reslove);
+const aboutView = reslove => require(['views/mineView/about'], reslove);
 
 Vue.use(Router);
 
@@ -44,6 +45,7 @@ export const RouterMap = [
         children: [
           {path: 'index', name: 'user', component: userView, meta: {title: '我的'}},
           {path: 'info', name: 'info', component: infoView, meta: {title: '编辑', back: true}},
+          {path: 'about', name: 'about', component: aboutView, meta: {title: '关于', back: true}},
           {path: 'edit/:id', name: 'edit', component: editView, meta: {back: true, editBtn: true}}
         ]
       }

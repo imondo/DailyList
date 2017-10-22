@@ -13,7 +13,7 @@
       <mu-list-item title="编辑" to="/mine/info">
         <i class="mu-item-right iconfont icon-gengduo"></i>
       </mu-list-item>
-      <mu-list-item title="关于">
+      <mu-list-item title="关于" to="/mine/about">
         <i class="mu-item-right iconfont icon-gengduo"></i>
       </mu-list-item>
     </mu-list>
