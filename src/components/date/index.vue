@@ -23,7 +23,7 @@
     <ul class="calendar-day">
       <li v-for="(date, index) in dateData" class="day" :class="{'date-first':weekDay===index,'date-last':totalDays===index}">
         <span class="date-info"
-              :class="{'date-index':nowMonthData.indexOf(date) > -1,'date-now':changeMonth===nowMonth && nowDay.day===date}"
+              :class="{'date-index':nowMonthData.includes(date), 'date-now':changeMonth===nowMonth && nowDay.day===date}"
         >{{date}}</span>
         <span class="date-bg"></span>
       </li>
@@ -164,7 +164,7 @@
         } else {
           vm.month--;
         }
-        vm.initDate(vm.year, vm.month);
+        vm.changeMonths(vm.year, vm.month);
       },
       next() {
         const vm = this;
@@ -174,8 +174,19 @@
         } else {
           vm.month++;
         }
-        vm.initDate(vm.year, vm.month);
-      }
+        vm.changeMonths(vm.year, vm.month);
+      },
+      changeMonths(year,month) {
+        const vm = this;
+        let m = year + '-' + ((month + 1) < 10 ? '0' + (month + 1) : (month + 1));
+        let nowMonthData = vm.calendarData.find((val) => val.month === m);
+        if (nowMonthData) {
+          vm.nowMonthData = nowMonthData.days;
+        } else {
+          vm.nowMonthData = [];
+        }
+        vm.initDate(year, month);
+      },
     },
     watch: {
       calendarData(val) {
@@ -186,22 +197,6 @@
           } else {
             vm.nowMonthData = [];
           }
-        }
-        vm.$on('changeMonth', month => {
-          for (let i in val) {
-            console.log(val);
-            if (val[i].month === month) {
-              vm.nowMonthData = val[i].days;
-            } else {
-              vm.nowMonthData = [];
-            }
-          }
-        })
-      },
-      nowMonth(newV, oldV) {
-        const vm = this;
-        if (newV != oldV) {
-          vm.$emit('changeMonth', newV);
         }
       }
     }

@@ -78,7 +78,8 @@
         nowDay: null,
         detailsData: {
           details: {
-            isToday: false
+            isToday: false,
+            totalDays: []
           }
         },
         sum: null
@@ -106,46 +107,46 @@
         const vm = this;
         let details = vm.detailsData.details;
         let id = vm.$route.params.id;
-        this.updateDay(details, id)
+        this.updateDay(details, id);
       },
       updateDay(details, id) {
         const vm = this;
+        vm.initDay = getDaysInOneMonth.format('ymd');
         details.isToday = !details.isToday;
         let signRecord = {};
         let month = vm.nowDay.year + '-' + ((vm.nowDay.month + 1) < 10 ? '0' + (vm.nowDay.month + 1) : (vm.nowDay.month + 1));
         signRecord.month = month;
         signRecord.days = [];
-        if (details.totalDays.length === 0) {
+        let day = details.totalDays.find((val) => val.month === month);
+        if (!day) {
           details.totalDays.push(signRecord);
-        } else {
-          for (let i in details.totalDays) {
-            if (details.totalDays[i].month !== signRecord.month) {
-              details.totalDays.push(signRecord);
-            }
-          }
         }
         // 是否今天签到
         if (details.isToday) {
 
-          for (let i in details.totalDays) {
-            if (details.totalDays[i].month === signRecord.month && details.yesterday != vm.initDay) {
-              if (details.totalDays[i].days.indexOf(vm.nowDay.day) === -1) {
-                details.totalDays[i].days.push(vm.nowDay.day);
+          for (let item of details.totalDays) {
+            if (item.month === signRecord.month && details.yesterday != vm.initDay) {
+              console.log(vm.nowDay.day);
+              if (!item.days.includes(vm.nowDay.day)) {
+                item.days.push(vm.nowDay.day);
               }
             }
           }
-
+          vm.sum++;
           details.yesterday = vm.initDay;
           details.startDay = vm.resetDay(details.startDay, true);
-          vm.sum++;
         } else {
+
+          for (let item of details.totalDays) {
+            if (item.month === signRecord.month && details.yesterday === vm.initDay) {
+              if (item.days.includes(vm.nowDay.day)) {
+                item.days.pop();
+              }
+            }
+          }
           vm.sum--;
           details.startDay = vm.resetDay(details.startDay);
           details.yesterday = vm.resetDay(details.yesterday);
-
-          for (let i in details.totalDays) {
-            details.totalDays[i].days.pop();
-          }
         }
 
         let params = {
@@ -166,6 +167,7 @@
       },
       resetDay(day, check) {
         const vm = this;
+        vm.initDay = getDaysInOneMonth.format('ymd');
         if (check) {
           if (day === null) {
             return vm.initDay;
