@@ -1,18 +1,24 @@
 var path = require('path')
 var webpack = require('webpack')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const museUiThemePath = path.join(
   __dirname,
   'node_modules',
   'muse-ui',
   'src/styles/themes/variables/default.less'
 )
-
+const prod = require('./config/prod');
+const test = require('./config/test');
+const dev = require('./config/dev');
+const PUBLICPATH = process.env.NODE_ENV === 'production'? prod.PUBLICPATH: (process.env.NODE_ENV === 'testing' ? test.PUBLICPATH : dev.PUBLICPATH);
+const VERSION = process.env.NODE_ENV === 'production'? prod.VERSION: (process.env.NODE_ENV === 'testing' ? test.VERSION : dev.VERSION);
 module.exports = {
   entry: './src/main.js',
   output: {
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
-    filename: 'build.js'
+    path: path.resolve(__dirname, `./${PUBLICPATH.replace(/\"/g, "")}/`),
+    publicPath: `/${PUBLICPATH.replace(/\"/g, "")}/`,
+    filename: `build.js?version=${VERSION.replace(/\"/g, "")}`
   },
   module: {
     loaders: [
@@ -93,25 +99,64 @@ module.exports = {
     }
   },
   devServer: {
-    historyApiFallback: true,
+    contentBase: `./${PUBLICPATH.replace(/\"/g, "")}`,
+    historyApiFallback: {
+      index: `/${PUBLICPATH.replace(/\"/g, "")}/index.html`
+    },
+    port: 8080,
     noInfo: true,
-    port: 8080
+    inline: true,
+    hot: true
   },
   performance: {
     hints: false
   },
   devtool: '#eval-source-map'
 }
-
+if (process.env.NODE_ENV === 'development') {
+  module.exports.plugins = (module.exports.plugins || []).concat([
+    new webpack.DefinePlugin({
+      'process.env': dev
+    }),
+    new HtmlWebpackPlugin({
+      filename: './index.html',
+      template: './index.html',
+      inject: true
+    }),
+  ])
+}
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
   // http://vue-loader.vuejs.org/en/workflow/production.html
+  module.exports.devtool = '#source-map'; // 生产环境使用
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
+      'process.env': prod
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
+      compress: {
+        warnings: false
       }
     }),
+    new HtmlWebpackPlugin({
+      filename: './index.html',
+      template: './index.html',
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+      },
+      chunksSortMode: 'dependency',
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, 'static'),
+        to: 'static',
+        ignore: ['.*']
+      }
+    ]),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       compress: {

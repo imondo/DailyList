@@ -18,6 +18,7 @@ import AV from 'leancloud-storage';
 // import datePicker from 'muse-components/datePicker'
 
 import MuseUI from 'muse-ui';
+import '../static/fonts/material-icons.css';
 import 'muse-ui/dist/muse-ui.css';
 import touch from 'vue-directive-touch';
 import '../static/icon/iconfont.css';
