@@ -73,8 +73,9 @@
         position: relative;
         .date-bg {
           position: absolute;
-          top: -1px;
-          left: 6px;
+          top: -2px;
+          left: 10px;
+          z-index: -1;
           height: 34px;
           background-color: #03A9F4;
           border-radius: 50%;
@@ -100,9 +101,6 @@
         color: #03A9F4;
       }
       .date-index {
-        position: absolute;
-        left: 15px;
-        z-index: 10;
         color: #FFFFFF;
       }
       .date-index ~ .date-bg {
