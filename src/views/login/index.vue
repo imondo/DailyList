@@ -120,8 +120,8 @@
       return {
         isReg: false,
         loginData: {
-          mobilePhoneNumber: '18573159619',
-          password: '123456',
+          mobilePhoneNumber: '',
+          password: '',
           smsCode: '',
           signature: '',
           sex: ''
