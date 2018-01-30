@@ -73,9 +73,12 @@
         position: relative;
         .date-bg {
           position: absolute;
-          top: -2px;
-          left: 10px;
+          top: 50%;
+          left: 50%;
           z-index: -1;
+          margin-top: -17px;
+          margin-left: -17px;
+          width: 34px;
           height: 34px;
           background-color: #03A9F4;
           border-radius: 50%;
@@ -85,7 +88,6 @@
           transform: scale(0);
           -webkit-transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
           transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
-          width: 34px;
         }
       }
       .date-first {
