@@ -1,6 +1,6 @@
 'use strict';
 module.exports = {
   NODE_ENV: '"production"',
-  PUBLICPATH: '"dailylist"',
+  PUBLICPATH: '"timer"',
   VERSION: '"1.0.0"'
 };

@@ -2,7 +2,7 @@
   <div class="info-wrapper">
     <mu-list>
       <mu-list-item title="头像" v-touch:tap="uploadOpen">
-        <mu-avatar :src="userInfo.avatarImg?userInfo.avatarImg:'../../src/assets/user.png'" slot="rightAvatar"/>
+        <mu-avatar :src="userInfo.avatarImg?userInfo.avatarImg:defalutAvatar" slot="rightAvatar"/>
       </mu-list-item>
     </mu-list>
     <mu-list>
@@ -42,12 +42,14 @@
   }
 </style>
 <script type='text/ecmascript-6'>
+  import defalutAvatar from '../../../static/img/user.png';
   import uploadAvatar from 'components/uploadAvatar';
   import { uploadAvatarImage, updateUser } from 'api/user';
   export default {
     data() {
       return {
-        target: null
+        target: null,
+        defalutAvatar
       }
     },
     computed: {

@@ -123,6 +123,13 @@ if (process.env.NODE_ENV === 'development') {
       template: './index.html',
       inject: true
     }),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, 'static'),
+        to: 'static',
+        ignore: ['.*']
+      }
+    ]),
   ])
 }
 if (process.env.NODE_ENV === 'production') {
